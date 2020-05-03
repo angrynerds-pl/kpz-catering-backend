@@ -13,8 +13,8 @@ namespace KPZ_Catering_API.Controllers
     public class OrderController : ControllerBase
     {
         [HttpPost("")]
-        public void Post([FromBody] Order order){
-            Console.WriteLine(order.dishes[0].name);
+        public void Post([FromBody] OrderDetails order){
+            Database.Logic.DatabaseController.putOrder(order);
         }
     }
 }

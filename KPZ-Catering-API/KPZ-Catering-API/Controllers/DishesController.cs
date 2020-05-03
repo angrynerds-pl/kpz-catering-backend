@@ -15,9 +15,10 @@ namespace KPZ_Catering_API.Controllers
         [HttpGet]
         public List<Dish> getListOfDishes()
         {
-            Dish dish = new Dish() {name="Kanapka z serem",price=24.5 };
-            Dish dish1 = new Dish() { name = "Kanapka z szynką", price = 24.5 };
-            List<Dish> dishes = new List<Dish> { dish, dish1};
+            List<Dish> dishes = new List<Dish>();
+            foreach (Database.Entities.Danie danie in Database.Logic.DatabaseController.getDishes()) {
+                dishes.Add(new Dish() { description = danie.sklad, name = danie.nazwa, price = danie.cena });
+            }
             return dishes;
         }
     }

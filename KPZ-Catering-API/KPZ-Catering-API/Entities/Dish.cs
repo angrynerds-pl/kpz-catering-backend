@@ -8,6 +8,7 @@ namespace KPZ_Catering_API.Entities
     public class Dish
     {
         public String name { get; set; }
-        public double price { get; set; }
+        public Decimal price { get; set; }
+        public String description { get; set; }
     }
 }
