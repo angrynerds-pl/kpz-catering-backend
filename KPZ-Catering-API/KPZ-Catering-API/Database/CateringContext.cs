@@ -1,6 +1,5 @@
 ﻿using KPZ_Catering_API.Database.Entities;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.EntityFrameworkCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +24,6 @@ namespace KPZ_Catering_API.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<DanieZamowienie>().HasKey(e => new { e.danie_danie_id, e.zamowienie_zamowienie_id });
             modelBuilder.Entity<DanieZamowienie>()
                     .HasOne(dz => dz.danie)
