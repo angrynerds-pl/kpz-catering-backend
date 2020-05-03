@@ -7,14 +7,24 @@ using System.Threading.Tasks;
 
 namespace KPZ_Catering_API.Database.Logic
 {
+    /// <summary>
+    /// Class controls flow of data in backend
+    /// </summary>
     public static class DatabaseController
     {
         static CateringContext cateringContext = new CateringContext();
+        /// <summary>
+        /// Method returns list of avaliable dishes
+        /// </summary>
+        /// <returns>List of avaliable dishes</returns>
         public static List<Danie> getDishes()
         {
             return cateringContext.Dish.ToList();
         }
-
+        /// <summary>
+        /// Method put order into database
+        /// </summary>
+        /// <param name="orderDetails">Order getted by endpoint</param>
         public static void putOrder(OrderDetails orderDetails)
         {
             cateringContext.Database.EnsureCreated();

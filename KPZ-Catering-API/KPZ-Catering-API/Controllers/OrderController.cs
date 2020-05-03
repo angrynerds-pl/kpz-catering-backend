@@ -12,6 +12,10 @@ namespace KPZ_Catering_API.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
+        /// <summary>
+        /// Endpoint loads order data into database
+        /// </summary>
+        /// <param name="order">Order to put in database</param>
         [HttpPost("")]
         public void Post([FromBody] OrderDetails order){
             Database.Logic.DatabaseController.putOrder(order);
