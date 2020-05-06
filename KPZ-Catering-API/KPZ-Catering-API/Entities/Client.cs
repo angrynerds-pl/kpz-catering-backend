@@ -13,6 +13,5 @@ namespace KPZ_Catering_API.Entities
         public String address { get; set; }
         public String email { get; set; }
         public int phone { get; set; }
-        public String timePreference { get; set; }
     }
 }

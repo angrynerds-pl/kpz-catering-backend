@@ -21,6 +21,19 @@ namespace KPZ_Catering_API.Database.Logic
         {
             return cateringContext.Dish.ToList();
         }
+
+        /// <summary>
+        /// Method to returns list of orders
+        /// </summary>
+        /// <returns>List of all orders</returns>
+        public static List<Zamowienie> getOrders() {
+            return cateringContext.Order.ToList();
+        }
+
+        public static Klient getClientById(Int64 id) {
+            return cateringContext.Client.Where(i => i.klient_id == id).ToList()[0];
+        }
+
         /// <summary>
         /// Method put order into database
         /// </summary>

@@ -11,10 +11,10 @@ namespace KPZ_Catering_API.Database.Entities
     public class Danie
     {
         [Key]
-        public Int64 danie_id { get; set; }
+        public long danie_id { get; set; }
         public virtual ICollection<DanieZamowienie> daniaZamowienia { get; set; }
-        public string nazwa { get; set; }
+        public String nazwa { get; set; }
         public Decimal cena { get; set; }
-        public string sklad { get; set; }
+        public String? sklad { get; set; }
     }
 }

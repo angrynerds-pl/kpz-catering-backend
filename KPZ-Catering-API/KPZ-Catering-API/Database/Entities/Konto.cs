@@ -11,11 +11,11 @@ namespace KPZ_Catering_API.Database.Entities
     public class Konto
     {
         [Key]
-        public Int64 konto_id { get; set; }
+        public long konto_id { get; set; }
         public String login { get; set; }
         public String haslo { get; set; }
         [ForeignKey("klient")]
-        public Int64 klienci_klient_id { get; set; }
+        public long? klienci_klient_id { get; set; }
         public Klient klient { get; set; }
     }
 }

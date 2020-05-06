@@ -11,10 +11,10 @@ namespace KPZ_Catering_API.Database.Entities
     public class Admin
     {
         [Key]
-        public Int64 admin_id { get; set; }
+        public long admin_id { get; set; }
         public String login { get; set; }
         public String haslo { get; set; }
-        public String imie { get; set; }
-        public String nazwisko { get; set; }
+        public String? imie { get; set; }
+        public String? nazwisko { get; set; }
     }
 }
