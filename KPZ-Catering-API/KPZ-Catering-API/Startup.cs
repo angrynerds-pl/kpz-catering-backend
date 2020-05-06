@@ -23,7 +23,7 @@ namespace KPZ_Catering_API
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("https://frontendangularstorage.z13.web.core.windows.net/");
+                                      builder.WithOrigins("https://frontendangularstorage.z13.web.core.windows.net");
                                   });
         });
             services.AddControllers();
@@ -38,6 +38,8 @@ namespace KPZ_Catering_API
             }
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseEndpoints(endpoints =>
             {
