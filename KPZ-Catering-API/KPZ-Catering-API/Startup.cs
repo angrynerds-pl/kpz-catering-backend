@@ -23,7 +23,7 @@ namespace KPZ_Catering_API
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("https://cateringbackend.azurewebsites.net/");
+                                      builder.WithOrigins("https://frontendangularstorage.z13.web.core.windows.net/");
                                   });
         });
             services.AddControllers();
