@@ -30,6 +30,15 @@ namespace KPZ_Catering_API.Database.Logic
             return cateringContext.Order.ToList();
         }
 
+        /// <summary>
+        /// Method to returns list of 
+        /// not realised orders
+        /// </summary>
+        /// <returns>List of current orders</returns>
+        public static List<Zamowienie> getCurrentOrders() {
+            return cateringContext.Order.Where(o => o.status_zamowienia != "w realizacji" && o.status_zamowienia != "anulowano").ToList();
+        }
+
         public static Klient getClientById(Int64 id) {
             return cateringContext.Client.Where(i => i.klient_id == id).ToList()[0];
         }

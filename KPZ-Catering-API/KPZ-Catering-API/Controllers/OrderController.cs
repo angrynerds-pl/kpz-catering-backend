@@ -22,6 +22,10 @@ namespace KPZ_Catering_API.Controllers
             Database.Logic.DatabaseController.putOrder(order);
         }
 
+        /// <summary>
+        /// Endpoint gets list of all orders
+        /// </summary>
+        /// <returns>List of orders in json format</returns>
         [HttpGet("ordersList")]
         public String getOrderList() {
             var dbOrders = Database.Logic.DatabaseController.getOrders();
@@ -30,6 +34,20 @@ namespace KPZ_Catering_API.Controllers
                 listOfOrders.Add(Database.Logic.OrderParser.FromDbToEntity.parseOrderDetails(order));
             }
             return JsonConvert.SerializeObject(listOfOrders);
+        }
+
+        /// <summary>
+        /// Endpoint gets list of current orders
+        /// </summary>
+        /// <returns>List of current orders in json format</returns>
+        [HttpGet("currentOrders")]
+        public String getCurrentOrders() {
+            var dbCurrentOrders = Database.Logic.DatabaseController.getCurrentOrders();
+            var listOfCurrentOrderes = new List<Entities.OrderDetails>();
+            foreach (var order in dbCurrentOrders) {
+                listOfCurrentOrderes.Add(Database.Logic.OrderParser.FromDbToEntity.parseOrderDetails(order));
+            }
+            return JsonConvert.SerializeObject(listOfCurrentOrderes);
         }
     }
 }
