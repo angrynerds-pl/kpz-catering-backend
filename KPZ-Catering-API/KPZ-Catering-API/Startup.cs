@@ -23,7 +23,9 @@ namespace KPZ_Catering_API
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("https://frontendangularstorage.z13.web.core.windows.net");
+                                      builder.AllowAnyOrigin()
+                                             .AllowAnyMethod()
+                                             .AllowAnyHeader();
                                   });
         });
             services.AddControllers();

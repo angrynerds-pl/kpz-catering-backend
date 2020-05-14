@@ -49,11 +49,23 @@ namespace KPZ_Catering_API.Database.Logic
                 nr_tel = orderDetails.client.phone.ToString()
             };
             List<Danie> dania = new List<Danie>();
-            foreach (Dish dish in orderDetails.dishes)
-            {
+            foreach (Dish dish in orderDetails.dishes){
                 dania.Add(new Danie() { cena = dish.price, nazwa = dish.name, sklad = dish.description });
             }
-            cateringContext.Client.Add(klient);
+            List<Klient> klienciWBazie = cateringContext.Client.Where(s => s.email == klient.email).ToList();
+            if (klienciWBazie.Count == 0){
+                cateringContext.Client.Add(klient);
+            }else {
+                klienciWBazie[0].imie=klient.imie;
+                klienciWBazie[0].nazwisko = klient.nazwisko;
+                klienciWBazie[0].kod_pocztowy = klient.kod_pocztowy;
+                klienciWBazie[0].miasto = klient.miasto;
+                klienciWBazie[0].nr_domu = klient.nr_domu;
+                klienciWBazie[0].nr_mieszkania = klient.nr_mieszkania;
+                klienciWBazie[0].nr_tel = klient.nr_tel;
+                klienciWBazie[0].ulica = klient.ulica;
+            }
+            cateringContext.Client.Update(klienciWBazie[0]);
             Zamowienie zamowienie = new Zamowienie() { klient = klient, status_zamowienia="Złożone"};
             DanieZamowienie danieZamowienie = new DanieZamowienie();
             foreach (Danie danie in dania) {
@@ -62,7 +74,6 @@ namespace KPZ_Catering_API.Database.Logic
             }
             cateringContext.Order.Add(zamowienie);
             cateringContext.SaveChanges();
-
             }
     }
 }
