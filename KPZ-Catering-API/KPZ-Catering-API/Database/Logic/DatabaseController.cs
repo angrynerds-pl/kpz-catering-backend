@@ -22,6 +22,10 @@ namespace KPZ_Catering_API.Database.Logic
             return cateringContext.Dish.ToList();
         }
 
+        //public static List<DanieZamowienie> getDishOrder(long DishId,long OrderId) {
+        //    return cateringContext.DaniaZamowienia.Where(s => s.zamowienie_zamowienie_id == Order).ToList();
+        //}
+
         /// <summary>
         /// Method to returns list of orders
         /// </summary>
@@ -50,6 +54,8 @@ namespace KPZ_Catering_API.Database.Logic
         public static void putOrder(OrderDetails orderDetails)
         {
             cateringContext.Database.EnsureCreated();
+            Dictionary<String, int> danieILiczbaDan = new Dictionary<String, int>();
+            Danie danieHelper = new Danie();
             Klient klient = new Klient()
             {
                 imie = orderDetails.client.name,
@@ -58,8 +64,15 @@ namespace KPZ_Catering_API.Database.Logic
                 nr_tel = orderDetails.client.phone.ToString()
             };
             List<Danie> dania = new List<Danie>();
-            foreach (Dish dish in orderDetails.dishes){
-                dania.Add(new Danie() { cena = dish.price, nazwa = dish.name, sklad = dish.description });
+            foreach (Dish dish in orderDetails.dishes)
+            {
+                if (danieILiczbaDan.ContainsKey(dish.name))
+                {
+                    danieILiczbaDan[dish.name]++;
+                }
+                else {
+                    danieILiczbaDan[dish.name]= 1;
+                }
             }
             List<Klient> klienciWBazie = cateringContext.Client.Where(s => s.email == klient.email).ToList();
             if (klienciWBazie.Count == 0){
@@ -77,8 +90,8 @@ namespace KPZ_Catering_API.Database.Logic
             cateringContext.Client.Update(klienciWBazie[0]);
             Zamowienie zamowienie = new Zamowienie() { klient = klient, status_zamowienia="Złożone"};
             DanieZamowienie danieZamowienie = new DanieZamowienie();
-            foreach (Danie danie in dania) {
-                danieZamowienie = new DanieZamowienie() { danie = cateringContext.Dish.Where(s => (s.nazwa == danie.nazwa)).ToList()[0], zamowienie = zamowienie };
+            foreach (String nazwaDania in danieILiczbaDan.Keys) {
+                danieZamowienie = new DanieZamowienie() { danie = cateringContext.Dish.Where(s => (s.nazwa == nazwaDania)).ToList()[0], zamowienie = zamowienie, ilosc_dania= danieILiczbaDan[nazwaDania]};
                 zamowienie.daniaZamowienia.Add(danieZamowienie);
             }
             cateringContext.Order.Add(zamowienie);

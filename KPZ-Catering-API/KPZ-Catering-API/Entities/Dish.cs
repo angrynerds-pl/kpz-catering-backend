@@ -10,5 +10,6 @@ namespace KPZ_Catering_API.Entities
         public String name { get; set; }
         public Decimal price { get; set; }
         public String description { get; set; }
+        public int? count { get; set; }
     }
 }

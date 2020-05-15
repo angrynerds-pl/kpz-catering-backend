@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace KPZ_Catering_API.Database.Entities
 {
     [Table("admini", Schema = "catering")]
-    public class Admin
+    public class Admin:IdentityUser
     {
         [Key]
         public long admin_id { get; set; }

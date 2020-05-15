@@ -11,6 +11,7 @@ namespace KPZ_Catering_API.Database.Entities
     {
         public Zamowienie zamowienie { get; set; }
         public long zamowienie_zamowienie_id { get; set; }
+        public int? ilosc_dania { get; set; }
         public Danie danie { get; set; }
         public long danie_danie_id { get; set; }
 
