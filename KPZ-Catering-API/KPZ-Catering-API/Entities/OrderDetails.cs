@@ -13,6 +13,6 @@ namespace KPZ_Catering_API.Entities
         public String orderTime { get; set; }
         public String status { get; set; }
         public int periodicity { get; set; }
-        public String timePreference { get; set; }
+        public Address address { get; set; }
     }
 }

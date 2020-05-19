@@ -59,7 +59,7 @@ namespace KPZ_Catering_API
             services.AddScoped<IAdminService, AdminService>();
 
 
-            services.AddDbContext<CateringContext>();
+           // services.AddDbContext<CateringContext>();
 
 
             services.AddCors(options =>

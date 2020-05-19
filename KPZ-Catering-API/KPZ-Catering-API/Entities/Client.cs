@@ -10,7 +10,6 @@ namespace KPZ_Catering_API.Entities
     {
         public String name { get; set; }
         public String lastName { get; set; }
-        public String address { get; set; }
         public String email { get; set; }
         public int phone { get; set; }
     }

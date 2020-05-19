@@ -15,8 +15,8 @@ namespace KPZ_Catering_API.Database.Logic.OrderParser
         /// </summary>
         /// <param name="dbDish">Dish from database</param>
         /// <returns>Parsed dish</returns>
-        public static KPZ_Catering_API.Entities.Dish parseDish(Entities.Danie dbDish) {
-            return new KPZ_Catering_API.Entities.Dish() { name = dbDish.nazwa, description = dbDish.sklad, price = dbDish.cena };
+        public static KPZ_Catering_API.Entities.Dish parseDish(Entities.Danie dbDish, int? count) {
+            return new KPZ_Catering_API.Entities.Dish() { name = dbDish.nazwa, description = dbDish.sklad, price = dbDish.cena, count = count};
         }
 
         /// <summary>
@@ -29,7 +29,6 @@ namespace KPZ_Catering_API.Database.Logic.OrderParser
             {
                 name = dbClient.imie,
                 lastName = dbClient.nazwisko,
-                address = dbClient.ulica.ToString() + " " + dbClient.nr_mieszkania.ToString() + "/" + dbClient.nr_domu + " " + dbClient.kod_pocztowy + " " + dbClient.miasto,
                 email = dbClient.email,
                 phone = int.Parse(dbClient.nr_tel)
             };
@@ -43,9 +42,9 @@ namespace KPZ_Catering_API.Database.Logic.OrderParser
         public static KPZ_Catering_API.Entities.OrderDetails parseOrderDetails(Entities.Zamowienie dbOrder) {
             var eClient = parseClient(Database.Logic.DatabaseController.getClientById(dbOrder.klienci_klient_id));
             var eDishes = new List<KPZ_Catering_API.Entities.Dish>();
-            Console.WriteLine(dbOrder.daniaZamowienia.Count);
-            foreach (var dish in dbOrder.daniaZamowienia) {
-                eDishes.Add(parseDish(dish.danie));
+            //Console.WriteLine(dbOrder.daniaZamowienia.Count);
+            foreach (var dishOrders in DatabaseController.getDishesOrderById(dbOrder.zamowienie_id)) {
+                eDishes.Add(parseDish(DatabaseController.getDishById(dishOrders.danie_danie_id), dishOrders.ilosc_dania));
             }
 
             return new KPZ_Catering_API.Entities.OrderDetails()
@@ -54,31 +53,17 @@ namespace KPZ_Catering_API.Database.Logic.OrderParser
                 dishes = eDishes,
                 sum = (double)dbOrder.suma,
                 orderTime = dbOrder.data_zamowienia.ToString(),
-                timePreference = dbOrder.data_dostarczenia.ToString(),
                 periodicity = dbOrder.cyklicznosc,
-                status = dbOrder.status_zamowienia
+                status = dbOrder.status_zamowienia,
+                address = new KPZ_Catering_API.Entities.Address() 
+                { 
+                kodPocztowy = dbOrder.klient.kod_pocztowy,
+                miasto = dbOrder.klient.miasto,
+                ulica = dbOrder.klient.ulica,
+                nrDomu = dbOrder.klient.nr_domu,
+                nrMieszkania = dbOrder.klient.nr_mieszkania
+                }
             };
         }
-        //public static KPZ_Catering_API.Entities.OrderDetails parseOrderDetailsAlt(Entities.DanieZamowienie dbDishOrder)
-        //{
-        //    var eOrder = DatabaseController.getOrderById(dbDishOrder.zamowienie_zamowienie_id);
-        //    var eClient = parseClient(Database.Logic.DatabaseController.getClientById(eOrder.klienci_klient_id));
-        //    var eDishes = new List<KPZ_Catering_API.Entities.Dish>();
-        //    foreach (var dish in eOrder)
-        //    {
-        //        eDishes.Add(parseDish(dish.danie));
-        //    }
-
-        //    return new KPZ_Catering_API.Entities.OrderDetails()
-        //    {
-        //        client = eClient,
-        //        dishes = eDishes,
-        //        sum = (double)dbOrder.suma,
-        //        orderTime = dbOrder.data_zamowienia.ToString(),
-        //        timePreference = dbOrder.data_dostarczenia.ToString(),
-        //        periodicity = dbOrder.cyklicznosc,
-        //        status = dbOrder.status_zamowienia
-        //    };
-        //}
     }
 }
