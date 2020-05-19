@@ -17,5 +17,7 @@ namespace KPZ_Catering_API.Database.Entities
         public String haslo { get; set; }
         public String? imie { get; set; }
         public String? nazwisko { get; set; }
+        [NotMapped]
+        public String token { get; set; }
     }
 }

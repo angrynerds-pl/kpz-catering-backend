@@ -19,20 +19,27 @@ namespace KPZ_Catering_API.Database.Logic
         /// <returns>List of avaliable dishes</returns>
         public static List<Danie> getDishes()
         {
-            return cateringContext.Dish.ToList();
+            return cateringContext.Dishes.ToList();
         }
 
-        //public static List<DanieZamowienie> getDishOrder(long DishId,long OrderId) {
+        //public static List<DanieZamowienie> getDishOrder(long DishId, long OrderId)
+        //{
         //    return cateringContext.DaniaZamowienia.Where(s => s.zamowienie_zamowienie_id == Order).ToList();
         //}
+
+        public static List<DanieZamowienie> getAllDishesOrders() {
+            return cateringContext.DishesOrders.ToList();
+        }
 
         /// <summary>
         /// Method to returns list of orders
         /// </summary>
         /// <returns>List of all orders</returns>
         public static List<Zamowienie> getOrders() {
-            return cateringContext.Order.ToList();
+            return cateringContext.Orders.ToList();
         }
+
+
 
         /// <summary>
         /// Method to returns list of 
@@ -40,11 +47,15 @@ namespace KPZ_Catering_API.Database.Logic
         /// </summary>
         /// <returns>List of current orders</returns>
         public static List<Zamowienie> getCurrentOrders() {
-            return cateringContext.Order.Where(o => o.status_zamowienia != "w realizacji" && o.status_zamowienia != "anulowano").ToList();
+            return cateringContext.Orders.Where(o => o.status_zamowienia != "w realizacji" && o.status_zamowienia != "anulowano").ToList();
         }
 
         public static Klient getClientById(Int64 id) {
-            return cateringContext.Client.Where(i => i.klient_id == id).ToList()[0];
+            return cateringContext.Clients.Where(i => i.klient_id == id).ToList()[0];
+        }
+
+        public static List<Admin> GetAdmins() {
+            return cateringContext.Admins.ToList();
         }
 
         /// <summary>
@@ -74,9 +85,9 @@ namespace KPZ_Catering_API.Database.Logic
                     danieILiczbaDan[dish.name]= 1;
                 }
             }
-            List<Klient> klienciWBazie = cateringContext.Client.Where(s => s.email == klient.email).ToList();
+            List<Klient> klienciWBazie = cateringContext.Clients.Where(s => s.email == klient.email).ToList();
             if (klienciWBazie.Count == 0){
-                cateringContext.Client.Add(klient);
+                cateringContext.Clients.Add(klient);
             }else {
                 klienciWBazie[0].imie=klient.imie;
                 klienciWBazie[0].nazwisko = klient.nazwisko;
@@ -87,14 +98,14 @@ namespace KPZ_Catering_API.Database.Logic
                 klienciWBazie[0].nr_tel = klient.nr_tel;
                 klienciWBazie[0].ulica = klient.ulica;
             }
-            cateringContext.Client.Update(klienciWBazie[0]);
+            cateringContext.Clients.Update(klienciWBazie[0]);
             Zamowienie zamowienie = new Zamowienie() { klient = klient, status_zamowienia="Złożone"};
             DanieZamowienie danieZamowienie = new DanieZamowienie();
             foreach (String nazwaDania in danieILiczbaDan.Keys) {
-                danieZamowienie = new DanieZamowienie() { danie = cateringContext.Dish.Where(s => (s.nazwa == nazwaDania)).ToList()[0], zamowienie = zamowienie, ilosc_dania= danieILiczbaDan[nazwaDania]};
+                danieZamowienie = new DanieZamowienie() { danie = cateringContext.Dishes.Where(s => (s.nazwa == nazwaDania)).ToList()[0], zamowienie = zamowienie, ilosc_dania= danieILiczbaDan[nazwaDania]};
                 zamowienie.daniaZamowienia.Add(danieZamowienie);
             }
-            cateringContext.Order.Add(zamowienie);
+            cateringContext.Orders.Add(zamowienie);
             cateringContext.SaveChanges();
             }
     }

@@ -43,7 +43,7 @@ namespace KPZ_Catering_API.Database.Logic.OrderParser
         public static KPZ_Catering_API.Entities.OrderDetails parseOrderDetails(Entities.Zamowienie dbOrder) {
             var eClient = parseClient(Database.Logic.DatabaseController.getClientById(dbOrder.klienci_klient_id));
             var eDishes = new List<KPZ_Catering_API.Entities.Dish>();
-            Console.WriteLine(eClient.name);
+            Console.WriteLine(dbOrder.daniaZamowienia.Count);
             foreach (var dish in dbOrder.daniaZamowienia) {
                 eDishes.Add(parseDish(dish.danie));
             }

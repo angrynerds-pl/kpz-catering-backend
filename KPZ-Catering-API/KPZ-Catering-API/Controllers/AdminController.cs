@@ -2,76 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KPZ_Catering_API.Models;
+using KPZ_Catering_API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KPZ_Catering_API.Controllers
 {
+    [Authorize]
+    [ApiController]
     [Route("[controller]")]
     public class AdminController : ControllerBase
     {
-        private readonly UserManager<Database.Entities.Admin> _userManager;
-        private readonly SignInManager<Database.Entities.Admin> _signInManager;
-        public AdminController(
-           UserManager<Database.Entities.Admin> userManager,
-           SignInManager<Database.Entities.Admin> signInManager)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-        }
-        [Route("Page")]
-        public void Index()
-        {
-            Response.Redirect("https://hungrynerds2.z13.web.core.windows.net/admin/page");
-        }
-        [Route("UserInfo")]
-        [Authorize]
-        public async void UserInfo()
-        {
-            var user =
-                await _userManager.GetUserAsync(HttpContext.User).ConfigureAwait(false);
+        private IAdminService _adminService;
 
-            if (user == null)
-            {
-                RedirectToAction("Login");
-            }
-            //login functionality  
-
-            Response.Redirect("https://hungrynerds2.z13.web.core.windows.net/");
+        public AdminController(IAdminService adminService)
+        {
+            _adminService = adminService;
         }
-        [Route("Login")]
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        {
+            var admin = _adminService.Authenticate(model.Username, model.Password);
+
+            if (admin == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(admin);
+        }
+
         [HttpGet]
-        public void Login()
+        public IActionResult GetAll()
         {
-            Response.Redirect("https://hungrynerds2.z13.web.core.windows.net/admin");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(Database.Entities.Admin admin)
-        {
-
-            //login functionality  
-            var user = await _userManager.FindByNameAsync(admin.login);
-
-            if (user != null)
-            {
-                //sign in  
-                var signInResult = await _signInManager.PasswordSignInAsync
-                                   (user, admin.haslo, false, false);
-
-                if (signInResult.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-            return RedirectToAction("Index");
-        }
-        [Route("Logout")]
-        public async Task<IActionResult> LogOut(string username, string password)
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index");
+            var admins = _adminService.GetAll();
+            return Ok(admins);
         }
     }
 }

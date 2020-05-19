@@ -36,6 +36,18 @@ namespace KPZ_Catering_API.Controllers
             return JsonConvert.SerializeObject(listOfOrders);
         }
 
+        //[HttpGet("ordersListAlt")]
+        /*public String getOrderListAlt()
+        {
+            var dbDishesOrders = Database.Logic.DatabaseController.getAllDishesOrders();
+            var listOfOrders = new List<Entities.OrderDetails>();
+            foreach (var order in dbOrders)
+            {
+                listOfOrders.Add(Database.Logic.OrderParser.FromDbToEntity.parseOrderDetailsAlt(dbDishesOrders));
+            }
+            return JsonConvert.SerializeObject(listOfOrders);
+        }*/
+
         /// <summary>
         /// Endpoint gets list of current orders
         /// </summary>

@@ -9,12 +9,12 @@ namespace KPZ_Catering_API.Database
 {
     public class CateringContext : DbContext
     {
-        public DbSet<Danie> Dish { get; set; }
-        public DbSet<Klient> Client { get; set; }
-        public DbSet<Zamowienie> Order { get; set; }
-        public DbSet<Konto> Account { get; set; }
-        public DbSet<Admin> Admin { get; set; }
-        public DbSet<DanieZamowienie> DaniaZamowienia { get; set; }
+        public DbSet<Danie> Dishes { get; set; }
+        public DbSet<Klient> Clients { get; set; }
+        public DbSet<Zamowienie> Orders { get; set; }
+        public DbSet<Konto> Accounts { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<DanieZamowienie> DishesOrders { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured) {
                 optionsBuilder.UseSqlServer(" Server = tcp:cateringsqlserver.database.windows.net,1433; Initial Catalog = cateringDatabase; Persist Security Info = False; User ID = PanPrezes; Password = 35afeXLNBV8N; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
