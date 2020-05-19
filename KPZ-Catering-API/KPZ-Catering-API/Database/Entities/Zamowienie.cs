@@ -15,7 +15,7 @@ namespace KPZ_Catering_API.Database.Entities
         [ForeignKey("klient")]
         public long klienci_klient_id { get; set; }
         public Klient klient { get; set; }
-        public virtual ICollection<DanieZamowienie> daniaZamowienia { get; set; } = new List<DanieZamowienie>();
+        public List<DanieZamowienie> daniaZamowienia { get; set; } = new List<DanieZamowienie>();
         public DateTime data_zamowienia { get; set; } 
         public DateTime? data_dostarczenia { get; set; }
         public Int16 cyklicznosc { get; set; } = 0;

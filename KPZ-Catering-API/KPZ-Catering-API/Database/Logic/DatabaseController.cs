@@ -1,5 +1,6 @@
 ﻿using KPZ_Catering_API.Database.Entities;
 using KPZ_Catering_API.Entities;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,10 @@ namespace KPZ_Catering_API.Database.Logic
             return cateringContext.Orders.ToList();
         }
 
+
+        public static Zamowienie getOrderById(Int64 id) {
+            return cateringContext.Orders.Where(s => s.zamowienie_id == id).ToList()[0];
+        }
 
 
         /// <summary>

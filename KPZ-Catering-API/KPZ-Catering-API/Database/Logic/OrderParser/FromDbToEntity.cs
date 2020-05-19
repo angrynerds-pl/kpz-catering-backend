@@ -59,5 +59,26 @@ namespace KPZ_Catering_API.Database.Logic.OrderParser
                 status = dbOrder.status_zamowienia
             };
         }
+        //public static KPZ_Catering_API.Entities.OrderDetails parseOrderDetailsAlt(Entities.DanieZamowienie dbDishOrder)
+        //{
+        //    var eOrder = DatabaseController.getOrderById(dbDishOrder.zamowienie_zamowienie_id);
+        //    var eClient = parseClient(Database.Logic.DatabaseController.getClientById(eOrder.klienci_klient_id));
+        //    var eDishes = new List<KPZ_Catering_API.Entities.Dish>();
+        //    foreach (var dish in eOrder)
+        //    {
+        //        eDishes.Add(parseDish(dish.danie));
+        //    }
+
+        //    return new KPZ_Catering_API.Entities.OrderDetails()
+        //    {
+        //        client = eClient,
+        //        dishes = eDishes,
+        //        sum = (double)dbOrder.suma,
+        //        orderTime = dbOrder.data_zamowienia.ToString(),
+        //        timePreference = dbOrder.data_dostarczenia.ToString(),
+        //        periodicity = dbOrder.cyklicznosc,
+        //        status = dbOrder.status_zamowienia
+        //    };
+        //}
     }
 }

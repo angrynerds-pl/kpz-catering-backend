@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace KPZ_Catering_API.Database.Entities
 {
     [Table("admini", Schema = "catering")]
-    public class Admin:IdentityUser
+    public class Admin
     {
         [Key]
         public long admin_id { get; set; }
