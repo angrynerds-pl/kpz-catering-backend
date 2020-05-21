@@ -154,7 +154,7 @@ namespace KPZ_Catering_API.Database.Logic
                 klienciWBazie[0].ulica = klient.ulica;
                 cateringContext.Clients.Update(klienciWBazie[0]);
             }
-            Zamowienie zamowienie = new Zamowienie() { klient = klient, status_zamowienia="Złożone", suma = suma, data_zamowienia = DateTime.Parse(orderDetails.orderTime), cyklicznosc = (short)orderDetails.periodicity};
+            Zamowienie zamowienie = new Zamowienie() { klient = klient, status_zamowienia="Złożone", suma = suma, data_zamowienia = DateTime.Parse(orderDetails.orderTime), cyklicznosc = (short)orderDetails.periodicity, preferowana_pora=orderDetails.timePreference, data_dostarczenia=DateTime.Parse(orderDetails.orderDeliveredTime)};
             DanieZamowienie danieZamowienie = new DanieZamowienie();
             foreach (String nazwaDania in danieILiczbaDan.Keys) {
                 danieZamowienie = new DanieZamowienie() { danie = cateringContext.Dishes.Where(s => (s.nazwa == nazwaDania)).ToList()[0], zamowienie = zamowienie, ilosc_dania= danieILiczbaDan[nazwaDania]};
