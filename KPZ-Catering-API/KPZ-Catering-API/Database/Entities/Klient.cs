@@ -14,8 +14,8 @@ namespace KPZ_Catering_API.Database.Entities
         public String imie { get; set; }
         public String nazwisko { get; set; }
         public String ulica { get; set; }
-        public Int32 nr_domu { get; set; }
-        public Int32? nr_mieszkania { get; set; }
+        public String nr_domu { get; set; }
+        public String? nr_mieszkania { get; set; }
         public String kod_pocztowy { get; set; } 
         public String miasto { get; set; }
         public String? nr_tel { get; set; } 

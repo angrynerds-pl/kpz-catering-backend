@@ -164,7 +164,7 @@ namespace KPZ_Catering_API.Database.Logic
             cateringContext.SaveChanges();
             var orderHub = new Extentions.SignalR.OrderHub();
             orderHub.sendNewOrder(orderDetails);
-            //   Extentions.MailKit.Mail.newOrder(klient);
+            //Extentions.MailKit.Mail.newOrder(klient);
         }
     }
 }

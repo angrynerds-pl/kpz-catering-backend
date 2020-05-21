@@ -20,7 +20,7 @@ namespace KPZ_Catering_API.Database.Entities
         public DateTime? data_dostarczenia { get; set; }
         public String? preferowana_pora { get; set; }
         public Int16 cyklicznosc { get; set; } = 0;
-        public String status_zamowienia { get; set; } 
+        public String? status_zamowienia { get; set; } 
         public Decimal? suma { get; set; } = 0;
     }
 }

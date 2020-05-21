@@ -30,7 +30,7 @@ namespace KPZ_Catering_API.Database.Logic.OrderParser
                 name = dbClient.imie,
                 lastName = dbClient.nazwisko,
                 email = dbClient.email,
-                phone = int.Parse(dbClient.nr_tel)
+                phone = dbClient.nr_tel
             };
         }
         
