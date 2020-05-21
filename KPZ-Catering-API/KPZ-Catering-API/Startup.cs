@@ -94,13 +94,13 @@ namespace KPZ_Catering_API
             
             app.UseSignalR(route =>
             {
-                route.MapHub<InformHub>("/inform");
+                // route.MapHub<InformHub>("/inform");
+                route.MapHub<Extentions.SignalR.OrderHub>("/orderHub");
             });
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                // endpoints.MapHub<Extentions.SignalR.OrderHub>("/ordersHub");
             });
         }
     }
