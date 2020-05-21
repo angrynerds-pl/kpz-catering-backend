@@ -64,12 +64,11 @@ namespace KPZ_Catering_API
 
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
+            options.AddPolicy("CorsPolicy",
                     builder => builder
-                    .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                 //   .AllowCredentials()
+                    .AllowCredentials()
                     .SetIsOriginAllowed((hosts) => true));
             });
             services.AddSignalR();
@@ -86,12 +85,13 @@ namespace KPZ_Catering_API
 
             app.UseHttpsRedirection();
 
+            app.UseCors("CorsPolicy");
+            
             app.UseRouting();
             
             app.UseAuthorization();
             app.UseAuthentication();
-
-            app.UseCors("CorsPolicy");
+            
             app.UseSignalR(route =>
             {
                 route.MapHub<InformHub>("/inform");
@@ -100,7 +100,7 @@ namespace KPZ_Catering_API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<Extentions.SignalR.OrderHub>("/ordersHub");
+                // endpoints.MapHub<Extentions.SignalR.OrderHub>("/ordersHub");
             });
         }
     }
