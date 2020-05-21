@@ -66,9 +66,10 @@ namespace KPZ_Catering_API
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder
+                    .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowCredentials()
+                 //   .AllowCredentials()
                     .SetIsOriginAllowed((hosts) => true));
             });
             services.AddSignalR();
