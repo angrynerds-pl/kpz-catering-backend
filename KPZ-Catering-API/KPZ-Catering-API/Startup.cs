@@ -99,6 +99,7 @@ namespace KPZ_Catering_API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<Extentions.SignalR.OrderHub>("/ordersHub");
             });
         }
     }

@@ -162,7 +162,9 @@ namespace KPZ_Catering_API.Database.Logic
             }
             cateringContext.Orders.Add(zamowienie);
             cateringContext.SaveChanges();
-            Extentions.MailKit.Mail.newOrder(klient);
-            }
+            var orderHub = new Extentions.SignalR.OrderHub();
+            orderHub.sendNewOrder(orderDetails);
+            //   Extentions.MailKit.Mail.newOrder(klient);
+        }
     }
 }

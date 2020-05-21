@@ -22,6 +22,5 @@ namespace KPZ_Catering_API.Controllers
         {
             _informHub.Clients.All.InformClient(value);
         }
-
     }
 }
