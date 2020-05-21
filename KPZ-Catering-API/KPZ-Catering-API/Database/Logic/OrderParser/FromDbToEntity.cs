@@ -55,6 +55,8 @@ namespace KPZ_Catering_API.Database.Logic.OrderParser
                 orderTime = dbOrder.data_zamowienia.ToString(),
                 periodicity = dbOrder.cyklicznosc,
                 status = dbOrder.status_zamowienia,
+                timePreference = dbOrder.preferowana_pora,
+                orderDeliveredTime = dbOrder.data_dostarczenia.ToString(),
                 address = new KPZ_Catering_API.Entities.Address() 
                 { 
                 kodPocztowy = dbOrder.klient.kod_pocztowy,
