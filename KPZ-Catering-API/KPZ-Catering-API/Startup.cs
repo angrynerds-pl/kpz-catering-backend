@@ -57,6 +57,7 @@ namespace KPZ_Catering_API
 
             // configure DI for application services
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IAccountService, AccountService>();
 
 
            // services.AddDbContext<CateringContext>();

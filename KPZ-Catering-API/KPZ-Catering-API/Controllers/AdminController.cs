@@ -40,5 +40,10 @@ namespace KPZ_Catering_API.Controllers
             var admins = _adminService.GetAll();
             return Ok(admins);
         }
+
+        [HttpGet("clientAccounts")]
+        public List<Database.Entities.Konto> getAccounts() {
+            return Database.Logic.DatabaseController.getAccounts();
+        }
     }
 }

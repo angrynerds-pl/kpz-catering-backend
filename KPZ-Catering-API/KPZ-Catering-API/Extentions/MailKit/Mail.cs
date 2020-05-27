@@ -30,12 +30,30 @@ namespace KPZ_Catering_API.Extentions.MailKit
 
             BodyBuilder bodyBuilder = new BodyBuilder();
             bodyBuilder.TextBody = $"Szanowny Kliencie,\n\n" +
-            $"Otrzymaliśmy Twoje zamówienie i jest ono przez nas realizowane.\n\nŻyczymy smacznego.";
+            $"Otrzymaliśmy Twoje zamówienie i jest ono przez nas realizowane.\n\nŻyczymy smacznego,\nZespół Througheats!";
             message.Body = bodyBuilder.ToMessageBody();
 
             sendEmail(message);
         }
 
+        public static void newAccount(Database.Entities.Konto account) {
+            MimeMessage message = new MimeMessage();
+            MailboxAddress from = new MailboxAddress("Through eats", "througheats@catering.io");
+            message.From.Add(from);
+
+            var dbClient = KPZ_Catering_API.Database.Logic.DatabaseController.getClientById(account.klienci_klient_id);
+            MailboxAddress to = new MailboxAddress($"{dbClient.imie} {dbClient.nazwisko}", dbClient.email);
+            message.To.Add(to);
+
+            message.Subject = "Utworzono nowe konto";
+
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            bodyBuilder.TextBody = $"Szanowny Kliencie,\n\n" +
+            $"Zostało założone nowe konto\nDane dotyczące konta:\nLogin: {account.login}\nImię: {dbClient.imie}\nNazwisko: {dbClient.nazwisko}\n\nPozdrawiamy,\nZespół Trougheats!";
+            message.Body = bodyBuilder.ToMessageBody();
+
+            sendEmail(message);
+        }
         /// <summary>
         /// Method to make smtp server 
         /// connection configuration

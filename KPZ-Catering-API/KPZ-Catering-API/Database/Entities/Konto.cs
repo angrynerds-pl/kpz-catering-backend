@@ -15,7 +15,9 @@ namespace KPZ_Catering_API.Database.Entities
         public String login { get; set; }
         public String haslo { get; set; }
         [ForeignKey("klient")]
-        public long? klienci_klient_id { get; set; }
+        public long klienci_klient_id { get; set; }
         public Klient klient { get; set; }
+        [NotMapped]
+        public String token { get; set; }
     }
 }

@@ -166,5 +166,35 @@ namespace KPZ_Catering_API.Database.Logic
             orderHub.sendNewOrder(orderDetails);
             Extentions.MailKit.Mail.newOrder(klient);
         }
+
+        public static String putAccount(Account account) {
+            cateringContext.Database.EnsureCreated();
+            if (cateringContext.Accounts.Where(a => a.login == account.login).ToList().Count != 0) {
+                return "Account's login already used";
+            }
+            else {
+                Klient klient = new Klient()
+                {
+                    imie = account.client.name,
+                    nazwisko = account.client.lastName,
+                    email = account.client.email,
+                    nr_tel = account.client.phone.ToString(),
+                    nr_domu = account.address.nrDomu,
+                    kod_pocztowy = account.address.kodPocztowy,
+                    miasto = account.address.miasto,
+                    nr_mieszkania = account.address.nrMieszkania,
+                    ulica = account.address.ulica
+                };
+                Konto konto = new Konto() { login = account.login, haslo = account.haslo, klient = klient };
+                cateringContext.Accounts.Add(konto);
+                cateringContext.SaveChanges();
+                Extentions.MailKit.Mail.newAccount(konto);
+                return "done";
+            }
+        }
+
+        public static List<Konto> getAccounts() {
+            return cateringContext.Accounts.ToList();
+        }
     }
 }
